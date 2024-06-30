@@ -2,14 +2,12 @@ import { StatusBar } from "expo-status-bar";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
+import MainNavigator from "./src/navigators/MainNavigator.js";
 
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Text>I Love ChatGpt</Text>
-        <StatusBar style="auto" />
-      </View>
+      <MainNavigator />
     </NavigationContainer>
   );
 }
