@@ -9,12 +9,21 @@ import { Fontisto, Entypo } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
+  const options = {
+    headerTitleStyle: {
+      fontFamily: "regular",
+    },
+    tabBarLabelStyle: {
+      fontFamily: "regular",
+    },
+  };
   return (
     <Tab.Navigator>
       <Tab.Screen
         name="Chat"
         component={ChatScreen}
         options={{
+          ...options,
           tabBarIcon: ({ color, size }) => {
             return <Entypo name="chat" size={size} color={color} />;
           },
@@ -24,6 +33,7 @@ const MainNavigator = () => {
         name="Settings"
         component={SettingsScreen}
         options={{
+          ...options,
           tabBarIcon: ({ color, size }) => {
             return (
               <Fontisto name="player-settings" size={size} color={color} />
@@ -35,6 +45,7 @@ const MainNavigator = () => {
         name="Image"
         component={ImageScreen}
         options={{
+          ...options,
           tabBarIcon: ({ color, size }) => {
             return <Entypo name="image-inverted" size={size} color={color} />;
           },
