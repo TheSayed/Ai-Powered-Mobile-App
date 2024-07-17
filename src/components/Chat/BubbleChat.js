@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import colors from "../../constants/colors.js";
+import loadingGif from "../../../assets/images/loadingGif.gif";
 
 const BubbleChat = ({ text, role }) => {
   const textStyle = { ...styles.text };
@@ -8,25 +9,34 @@ const BubbleChat = ({ text, role }) => {
   if (role === "assistant") {
     textStyle.color = "black";
   }
+
   return (
     <View
       style={[
         styles.bubbleWrapper,
-        { justifyContent: role === "assistant" ? "flex-start" : "flex-end" },
+        {
+          justifyContent: role === "assistant" ? "flex-start" : "flex-end",
+        },
       ]}
     >
       <View
         style={[
           styles.container,
-          role === "assistant" ? styles.assistantBubble : styles.userContainer,
+          role === "assistant"
+            ? styles.assistantBubble
+            : role === "loading"
+            ? styles.loading
+            : styles.userContainer,
         ]}
       >
-        <Text style={textStyle}>{text}</Text>
+        {text && <Text style={textStyle}>{text}</Text>}
+        {role === "loading" && (
+          <Image source={loadingGif} style={styles.loadingGif} />
+        )}
       </View>
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   bubbleWrapper: {
     marginBottom: 10,
@@ -48,6 +58,17 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontFamily: "regular", // Adjust as needed for visibility
+  },
+  loading: {
+    width: "25%",
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 20,
+  },
+  loadingGif: {
+    height: 100,
+    width: 120,
   },
 });
 
