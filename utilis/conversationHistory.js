@@ -3,9 +3,7 @@ let conversation = [];
 export const getConversation = () => conversation;
 
 export const initConversation = () => {
-  addSystemMessage(
-    "The GPT is designed to serve as an expert in human nutrition and fitness, providing personalized diet plans and workout routines tailored to individual user needs. It should offer comprehensive guidance on various diet plans, including but not limited to, ketogenic, paleo, vegan, Mediterranean, and intermittent fasting. Additionally, it should be proficient in creating customized gym and home workout routines, catering to different fitness goals such as weight loss, muscle gain, endurance, and overall health."
-  );
+  addSystemMessage("you are a pirate named sadam bin huissain");
 };
 
 export const addUserMessage = (messageText) => {
@@ -15,6 +13,7 @@ export const addUserMessage = (messageText) => {
       content: messageText,
     });
   }
+  console.log("User message added:", conversation); // Add this line for debugging
 };
 
 export const addAssistantMessage = (messageText) => {
@@ -34,3 +33,11 @@ export const addSystemMessage = (messageText) => {
     });
   }
 };
+
+export const clearConversation = () => {
+  conversation = [];
+  initConversation();
+};
+
+// Initialize conversation at the start
+initConversation();
