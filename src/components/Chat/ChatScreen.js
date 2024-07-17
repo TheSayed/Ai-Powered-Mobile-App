@@ -9,17 +9,17 @@ import {
   Text,
 } from "react-native";
 import colors from "../../constants/colors.js";
-import { Feather } from "@expo/vector-icons";
 import {
   addUserMessage,
   clearConversation,
   getConversation,
-  initConversation,
 } from "../../../utilis/conversationHistory.js";
 import { makeChatRequest } from "../../../utilis/gbtUtilis.js";
-import BubbleChat from "./BubbleChat.js";
 import HeaderButton from "../HeaderButton.jsx";
-import { Entypo } from "@expo/vector-icons";
+
+import BubbleChat from "../BubbleChat.js";
+import InputContainer from "../InputContainer.jsx";
+import GetStartedComponent from "../GetStartedComponent.jsx";
 
 const ChatScreen = ({ navigation }) => {
   const [messageText, setMessageText] = useState("");
@@ -71,14 +71,7 @@ const ChatScreen = ({ navigation }) => {
       keyboardVerticalOffset={100}
     >
       <View style={styles.messagesContainer}>
-        {!loading && conversation.length === 0 && (
-          <View style={styles.getStartedMessage}>
-            <Entypo name="light-bulb" size={48} color={colors.lightGrey} />
-            <Text style={styles.getStartedText}>
-              Type a message to get started
-            </Text>
-          </View>
-        )}
+        {!loading && conversation.length === 0 && <GetStartedComponent />}
         <FlatList
           ref={(ref) => (flatList.current = ref)}
           onLayout={flatList.current?.scrollToEnd({ animated: true })}
@@ -105,17 +98,12 @@ const ChatScreen = ({ navigation }) => {
         )}
       </View>
 
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.textBox}
-          placeholder="Type a message...."
-          value={messageText}
-          onChangeText={setMessageText}
-        />
-        <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-          <Feather name="send" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+      <InputContainer
+        value={messageText}
+        onChangeText={setMessageText}
+        onPress={sendMessage}
+        placeholder={"Type a message..."}
+      />
     </KeyboardAvoidingView>
   );
 };
@@ -124,24 +112,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.greyBg,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    backgroundColor: "white",
-    padding: 10,
-  },
-  sendButton: {
-    backgroundColor: colors.primary,
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  textBox: {
-    flex: 1,
-    fontFamily: "regular",
-    letterSpacing: 0.5,
   },
   messagesContainer: {
     flex: 1,
@@ -155,17 +125,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: "center",
     width: "100%",
-  },
-  getStartedMessage: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 5,
-  },
-  getStartedText: {
-    fontSize: 20,
-    fontFamily: "regular",
-    color: colors.lightGrey,
   },
 });
 
